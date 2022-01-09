@@ -1,126 +1,22 @@
-schedule = []
-flightNo = 0
+#include <stdio.h>
+int main() {
+  int n, reversed = 0, remainder, original;
+    printf("Enter an integer: ");
+    scanf("%d", &n);
+    original = n;
 
+    // reversed integer is stored in reversed variable
+    while (n != 0) {
+        remainder = n % 10;
+        reversed = reversed * 10 + remainder;
+        n /= 10;
+    }
 
-# Main menu
-# We created this simple menu function for
-# code reusability & also for an interactive console
-def main_menu():
-    print("\n\n\t\tJPA Airline")
-    print("\n\t\t\t\tMAIN MENU")
-    print("\n\t\t1. ADD Flight")
-    print("\t\t2. EDIT Flight")
-    print("\t\t3. VIEW FLIGHT")
-    print("\t\t4. SEARCH FLIGHT")
-    print("\t\t5. CANCEL FLight")
-    print("\t\t6. EXIT")
-    # Out of the provided 6 choices, user needs to enter any 1 choice among the 6
+    // palindrome if orignal and reversed are equal
+    if (original == reversed)
+        printf("%d is a palindrome.", original);
+    else
+        printf("%d is not a palindrome.", original);
 
-    choice = input("\n\t\tEnter your choice                  : ")
-    if choice == '1':
-        add_flight()
-    elif choice == '2':
-        edit_flight()
-    elif choice == '3':
-        view_flight()
-    elif choice == '4':
-        search_flight()
-    elif choice == '5':
-        cancel_flight()
-    elif choice == '6':
-        exit()
-    else:
-        print("\n\t\tINVALID ENTRY")
-        main_menu()
-
-
-def add_flight():
-    # Adding a flight is the easiest because all you need to do is:
-    # append another list of details into the already existing list
-    flight = []
-    global flightNo
-    flightNo += 1
-    flight.append(flightNo)
-    origin = str(input("\n\t\tEnter Origin                       : "))
-    flight.append(origin)
-    destination = str(input("\t\tEnter Destination                  : "))
-    flight.append(destination)
-    date = input("\t\tEnter Date in format 'dd/m/yy'     : ")
-    flight.append(date)
-    departure = input("\t\tEnter Departure Time               : ")
-    flight.append(departure)
-    arrival = input("\t\tEnter Arrival Time                 : ")
-    flight.append(arrival)
-    capacity = int(input("\t\tEnter Capacity                     : "))
-    flight.append(capacity)
-
-    schedule.append(flight)  # By this step we are appending a list flight into a list schedule
-
-
-def edit_flight():
-    edit = int(input("\n\t\tEnter Flight No: "))
-    x = 0
-    for i in range(len(schedule)):
-        if edit == schedule[x][0]:
-            schedule[x][1] = input("\n\t\tOrigin           : ")
-            schedule[x][2] = input("\t\tDestination      : ")
-            schedule[x][3] = input("\t\tDate             : ")
-            schedule[x][4] = input("\t\tDeparture Time   : ")
-            schedule[x][5] = input("\t\tArrival Time     : ")
-            schedule[x][6] = input("\t\tCapacity         : ")
-            x += 1
-    if x == 0:
-        print("Flight No. doesn't exist")
-        print("Press Enter Key to go back to Main Menu")
-        main_menu()
-
-
-def view_flight():
-    # this function displays all flight schedule in schedule
-    for i in range(len(schedule)):
-        print(schedule[i])
-
-
-def search_flight():
-    # This function searches for an existing flight and displays the result
-    option = int(input("Search Criteria \n1. Flight No\n2. Destination\n\nEnter your choice     :"))
-    if option == 1:
-        # This will execute for searches based on flight No.
-        search = int(input("Enter Flight No     :"))
-        for i in range(len(schedule)):
-            if search == schedule[i][0]:
-                print(schedule[i])
-    elif option == 2:
-        # This will execute for searches based on destination
-        search = str(input("Enter Destination     :"))
-        for i in range(len(schedule)):
-            if search == schedule[i][2]:
-                print(schedule[i])
-    else:
-        # If the user enters any other choice then the search will be unsuccessful
-        print("Invalid Search Criteria")
-
-
-def cancel_flight():
-    # This function is to cancel a flight schedule from existing schedule
-    number = int(input("\nEnter Flight no: "))
-    # We'll collect Flight No. and search if it exists in schedule
-    x = 0
-    # x is a checking variable here. We assigned a value 0 to x.
-    for i in range(len(schedule)):
-        if number == schedule[x][0]:
-            x += 1
-            # x will be incremented & it won't be 0 anymore in this function's scope
-            print(schedule.pop(i))
-            # The pop function removes entry at index i
-            print("This Flight has now been cancelled")
-            # printing a confirmation message after removal.
-            # This ensures that removal was successful.
-            main_menu()
-    if x == 0:
-        print("Sorry, you have entered an invalid flight number")
-        main_menu()
-
-
-while True:
-    main_menu()
+    return 0;
+}
